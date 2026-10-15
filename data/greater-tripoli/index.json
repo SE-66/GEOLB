@@ -18,7 +18,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 0,
-        "clipped": 17
+        "clipped": 48
       },
       "bbox": [
         35.8,
@@ -58,7 +58,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 1,
-        "clipped": 19
+        "clipped": 49
       },
       "bbox": [
         35.8,
@@ -78,7 +78,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 0,
-        "clipped": 14
+        "clipped": 76
       },
       "bbox": [
         35.83333333333333,
@@ -112,13 +112,13 @@
       "tile": "r0c1",
       "type": "segment",
       "path": "./data/greater-tripoli/r0c1_segment.geojson",
-      "count": 669,
+      "count": 666,
       "source_count": 670,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 3,
         "outliers": 1,
-        "clipped": 17
+        "clipped": 63
       },
       "bbox": [
         35.83333333333333,
@@ -138,7 +138,7 @@
         "invalid": 0,
         "outside": 2,
         "outliers": 0,
-        "clipped": 41
+        "clipped": 62
       },
       "bbox": [
         35.86666666666667,
@@ -172,13 +172,13 @@
       "tile": "r0c2",
       "type": "segment",
       "path": "./data/greater-tripoli/r0c2_segment.geojson",
-      "count": 538,
+      "count": 537,
       "source_count": 539,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 1,
-        "clipped": 28
+        "clipped": 45
       },
       "bbox": [
         35.86666666666667,
@@ -192,13 +192,13 @@
       "tile": "r1c0",
       "type": "building",
       "path": "./data/greater-tripoli/r1c0_building.geojson",
-      "count": 2681,
+      "count": 2680,
       "source_count": 2681,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 0,
-        "clipped": 0
+        "clipped": 64
       },
       "bbox": [
         35.8,
@@ -232,13 +232,13 @@
       "tile": "r1c0",
       "type": "segment",
       "path": "./data/greater-tripoli/r1c0_segment.geojson",
-      "count": 1297,
+      "count": 1296,
       "source_count": 1298,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 1,
-        "clipped": 1
+        "clipped": 77
       },
       "bbox": [
         35.8,
@@ -252,13 +252,13 @@
       "tile": "r1c1",
       "type": "building",
       "path": "./data/greater-tripoli/r1c1_building.geojson",
-      "count": 5820,
+      "count": 5819,
       "source_count": 5820,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 0,
-        "clipped": 0
+        "clipped": 111
       },
       "bbox": [
         35.83333333333333,
@@ -272,11 +272,11 @@
       "tile": "r1c1",
       "type": "place",
       "path": "./data/greater-tripoli/r1c1_place.geojson",
-      "count": 1402,
+      "count": 1401,
       "source_count": 1402,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 0,
         "clipped": 0
       },
@@ -292,13 +292,13 @@
       "tile": "r1c1",
       "type": "segment",
       "path": "./data/greater-tripoli/r1c1_segment.geojson",
-      "count": 2001,
+      "count": 2000,
       "source_count": 2002,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 1,
-        "clipped": 1
+        "clipped": 112
       },
       "bbox": [
         35.83333333333333,
@@ -318,7 +318,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 0,
-        "clipped": 2
+        "clipped": 75
       },
       "bbox": [
         35.86666666666667,
@@ -352,13 +352,13 @@
       "tile": "r1c2",
       "type": "segment",
       "path": "./data/greater-tripoli/r1c2_segment.geojson",
-      "count": 685,
+      "count": 682,
       "source_count": 686,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 3,
         "outliers": 1,
-        "clipped": 6
+        "clipped": 64
       },
       "bbox": [
         35.86666666666667,
@@ -378,7 +378,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 0,
-        "clipped": 0
+        "clipped": 27
       },
       "bbox": [
         35.8,
@@ -412,13 +412,13 @@
       "tile": "r2c0",
       "type": "segment",
       "path": "./data/greater-tripoli/r2c0_segment.geojson",
-      "count": 64,
+      "count": 63,
       "source_count": 65,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 1,
-        "clipped": 1
+        "clipped": 17
       },
       "bbox": [
         35.8,
@@ -438,7 +438,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 0,
-        "clipped": 0
+        "clipped": 21
       },
       "bbox": [
         35.83333333333333,
@@ -472,13 +472,13 @@
       "tile": "r2c1",
       "type": "segment",
       "path": "./data/greater-tripoli/r2c1_segment.geojson",
-      "count": 60,
+      "count": 58,
       "source_count": 61,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 2,
         "outliers": 1,
-        "clipped": 1
+        "clipped": 25
       },
       "bbox": [
         35.83333333333333,
@@ -492,13 +492,13 @@
       "tile": "r2c2",
       "type": "building",
       "path": "./data/greater-tripoli/r2c2_building.geojson",
-      "count": 1136,
+      "count": 1135,
       "source_count": 1136,
       "sanitization": {
         "invalid": 0,
-        "outside": 0,
+        "outside": 1,
         "outliers": 0,
-        "clipped": 14
+        "clipped": 44
       },
       "bbox": [
         35.86666666666667,
@@ -538,7 +538,7 @@
         "invalid": 0,
         "outside": 0,
         "outliers": 1,
-        "clipped": 13
+        "clipped": 48
       },
       "bbox": [
         35.86666666666667,

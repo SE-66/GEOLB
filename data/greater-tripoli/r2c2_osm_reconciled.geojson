@@ -1,1 +1,1 @@
-{"type":"FeatureCollection","features":[]}
+{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"MultiPolygon","coordinates":[[[[35.8999796,34.4631104],[35.8999818,34.46302],[35.9001393,34.4630225],[35.9001371,34.4631129],[35.8999796,34.4631104]]]]},"properties":{"source":"OpenStreetMap","reconciliation":"osm_only","source_id":"010600000001000000010300000001000000050000009988128832F34140FF379B33473B","best_iou":0.123,"building":true,"name":""}}]}
