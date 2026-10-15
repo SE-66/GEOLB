@@ -1,0 +1,71 @@
+{
+  "region_bbox": [
+    35.8,
+    34.4,
+    35.9,
+    34.48
+  ],
+  "result": "FAIL",
+  "scope": "geometry/topology and manifest integrity only; not field verified",
+  "record_counts": {
+    "building": 18147,
+    "place": 2943,
+    "segment": 6063
+  },
+  "unique_id_counts": {
+    "building": 17923,
+    "place": 2942,
+    "segment": 5826
+  },
+  "cross_tile_duplicate_records": {
+    "building": 224,
+    "segment": 237,
+    "place": 1
+  },
+  "hard_issue_count": 36,
+  "warnings_count": 0,
+  "issues": [
+    "r0c0_segment:0 coordinates outside Lebanon",
+    "r0c0_segment:0 outside designated tile",
+    "r0c1_segment:0 coordinates outside Lebanon",
+    "r0c1_segment:0 outside designated tile",
+    "r0c1_segment:343 outside designated tile",
+    "r0c1_segment:344 outside designated tile",
+    "r0c1_segment:669 outside designated tile",
+    "r0c2_building:1712 outside designated tile",
+    "r0c2_building:1886 outside designated tile",
+    "r0c2_segment:0 coordinates outside Lebanon",
+    "r0c2_segment:0 outside designated tile",
+    "r0c2_segment:538 outside designated tile",
+    "r1c0_building:2637 outside designated tile",
+    "r1c0_segment:0 coordinates outside Lebanon",
+    "r1c0_segment:0 outside designated tile",
+    "r1c0_segment:1265 outside designated tile",
+    "r1c1_building:4749 outside designated tile",
+    "r1c1_place:1 outside designated tile",
+    "r1c1_segment:0 coordinates outside Lebanon",
+    "r1c1_segment:0 outside designated tile",
+    "r1c1_segment:199 outside designated tile",
+    "r1c2_segment:0 coordinates outside Lebanon",
+    "r1c2_segment:0 outside designated tile",
+    "r1c2_segment:80 outside designated tile",
+    "r1c2_segment:81 outside designated tile",
+    "r1c2_segment:683 outside designated tile",
+    "r2c0_segment:0 coordinates outside Lebanon",
+    "r2c0_segment:0 outside designated tile",
+    "r2c0_segment:64 outside designated tile",
+    "r2c1_segment:0 coordinates outside Lebanon",
+    "r2c1_segment:0 outside designated tile",
+    "r2c1_segment:12 outside designated tile",
+    "r2c1_segment:40 outside designated tile",
+    "r2c2_building:546 outside designated tile",
+    "r2c2_segment:0 coordinates outside Lebanon",
+    "r2c2_segment:0 outside designated tile"
+  ],
+  "warnings": [],
+  "limitations": [
+    "Dataset coverage is not evidence that every physical building is mapped.",
+    "Coordinates and geometry validity do not demonstrate positional accuracy.",
+    "OSM and Overture footprints can differ in acquisition time and generalization."
+  ]
+}
