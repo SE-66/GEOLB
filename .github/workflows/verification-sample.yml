@@ -1,0 +1,35 @@
+name: Generate Geographic Verification Sample
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/verification_sample.py'
+      - '.github/workflows/verification-sample.yml'
+permissions:
+  contents: write
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install 'shapely>=2.0'
+      - run: python scripts/verification_sample.py
+      - name: Publish verification sample
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/greater-tripoli/verification_sample.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: publish geographic verification sample"
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
