@@ -1,6 +1,12 @@
 name: Refresh Tripoli open geodata
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'studio.html'
+      - 'scripts/refresh_data.py'
+      - '.github/workflows/refresh-data.yml'
 permissions:
   contents: write
 jobs:
