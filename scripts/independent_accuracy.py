@@ -75,7 +75,6 @@ def main():
     missed=[{"reference_index":i,"geometry":mapping(refs[i][1]),"properties":{"status":"candidate_missing_in_geolb","reference_source":a.source}} for i in range(len(refs)) if i not in used_ref]
     unmatched=[mapped[i][0] for i in range(len(mapped)) if i not in used_map]
     errors=[m["centroid_error_m"] for m in matches]
-    coverage_geom=shape(json.loads(Path(a.reference).read_text())["features"][0]["geometry"]).envelope
     result={"status":"measured_against_independent_reference","reference":{"source":a.source,"date":a.acquired,"license":a.license,"reviewer":a.reviewer,"path":a.reference},
        "method":{"match":"one-to-one greedy highest polygon IoU","min_iou":a.min_iou,"max_centroid_error_m":a.max_centroid_m},
        "counts":{"reference_buildings":len(refs),"geolb_buildings_in_regional_dataset":len(mapped),"matched_reference_buildings":len(matches),"unmatched_reference_candidates":len(missed),"unmatched_geolb_ids_whole_region":len(unmatched)},
