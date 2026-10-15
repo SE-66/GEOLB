@@ -19,24 +19,24 @@ const overtureDatasets=[
 {file:'./data/tripoli/overture_segment.geojson',kind:'road'},
 {file:'./data/tripoli/overture_place.geojson',kind:'place'}
 ];
-function normalizeLocal(f,kind,i){const p=f.properties||{},g=f.geometry;if(!g)return null;const number=p['addr:housenumber']||p.addr_housenumber||'';return{type:'Feature',properties:{id:p['@id']||p.id||p.osm_id||('local-'+kind+'-'+i),type:kind,name:p.name||'',street:p['addr:street']||'',number},geometry:g}}
+function normalizeLocal(f,kind,i){const p=f.properties||{},g=f.geometry;if(!g)return null;const number=p['addr:housenumber']||p.addr_housenumber||'';return{type:'Feature',properties:{id:p['@id']||p.id||p.osm_id||('local-'+kind+'-'+i),type:kind,name:p.name||p.names?.primary||'',street:p['addr:street']||'',number,highway:p.highway||p.subtype||''},geometry:g}}
 const overtureOverlay=L.geoJSON(null,{style:{color:'#9156c6',weight:1.2,fillColor:'#b79cdb',fillOpacity:.24},pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:3,color:'#9156c6'})}).addTo(map);
 $('load').onclick=async()=>{
 $('load').disabled=true;$('status').textContent='Loading geographic data hosted on this site…';
 try{
 let loaded=[],all=[],overture=[],missing=[];
 for(const spec of localDatasets){let response=await fetch(spec.file,{cache:'no-store'});if(!response.ok){missing.push(spec.file+' HTTP '+response.status);continue}let payload=await response.json();if(payload.type!=='FeatureCollection')throw Error('Invalid GeoJSON: '+spec.file);let features=payload.features.map((f,i)=>normalizeLocal(f,spec.type,i)).filter(Boolean);all.push(...features);loaded.push(spec.label+': '+features.length)}
-for(const spec of overtureDatasets){try{let response=await fetch(spec.file,{cache:'no-store'});if(!response.ok)continue;let payload=await response.json();if(payload.type!=='FeatureCollection')continue;overture.push(...payload.features.filter(f=>f?.geometry));loaded.push('Overture '+spec.kind+': '+payload.features.length)}catch(e){missing.push(spec.file+': '+e.message)}}
+for(const spec of overtureDatasets){try{let response=await fetch(spec.file,{cache:'no-store'});if(!response.ok)continue;let payload=await response.json();if(payload.type!=='FeatureCollection')continue;overture.push(...payload.features.filter(f=>f?.geometry).map((f,i)=>normalizeLocal(f,spec.kind,i)));loaded.push('Overture '+spec.kind+': '+payload.features.length)}catch(e){missing.push(spec.file+': '+e.message)}}
 if(!all.length&&!overture.length)throw Error('No local data files available. Run GitHub Actions → Refresh Tripoli open geodata. Missing: '+missing.join(', '));
-data={type:'FeatureCollection',features:all};
-const r=all.filter(f=>f.properties.type==='road'),bl=all.filter(f=>f.properties.type==='building'),nc=r.filter(f=>f.properties.name),hn=bl.filter(f=>f.properties.number);
+const ospRoads=all.filter(f=>f.properties.type==='road'),ospBuildings=all.filter(f=>f.properties.type==='building');const ovRoads=overture.filter(f=>f.properties.type==='road'&&f.geometry.type.includes('Line')),ovBuildings=overture.filter(f=>f.properties.type==='building'&&f.geometry.type.includes('Polygon'));const ovPlaces=overture.filter(f=>f.properties.type==='place');const primary=[...(ospRoads.length?ospRoads:ovRoads),...(ospBuildings.length?ospBuildings:ovBuildings)];data={type:'FeatureCollection',features:primary};
+const r=primary.filter(f=>f.properties.type==='road'),bl=primary.filter(f=>f.properties.type==='building'),nc=r.filter(f=>f.properties.name),hn=bl.filter(f=>f.properties.number);
 roads.clearLayers().addData({type:'FeatureCollection',features:r});
 buildings.clearLayers().addData({type:'FeatureCollection',features:bl});
-overtureOverlay.clearLayers().addData({type:'FeatureCollection',features:overture});
+overtureOverlay.clearLayers().addData({type:'FeatureCollection',features:ovPlaces});
 $('roads').textContent=r.length||'—';$('buildings').textContent=bl.length||'—';$('named').textContent=r.length?nc.length:'—';$('numbered').textContent=bl.length?hn.length:'—';
-$('coverage').textContent='Mapped OSM road segments with names: '+(r.length?Math.round(nc.length/r.length*100)+'%':'unavailable')+' · OSM buildings with numbers: '+(bl.length?Math.round(hn.length/bl.length*100)+'%':'unavailable')+'. Overture overlay: '+overture.length+' raw features (not merged or deduplicated).';
+$('coverage').textContent='Mapped road segments with names: '+(r.length?Math.round(nc.length/r.length*100)+'%':'unavailable')+' · Buildings with numbers: '+(bl.length?Math.round(hn.length/bl.length*100)+'%':'unavailable')+'. Rendered from '+(ospBuildings.length?'OSM buildings':'Overture buildings')+' and '+(ospRoads.length?'OSM roads':'Overture segments')+'. Places overlay: '+ovPlaces.length+'. Not deduplicated.';
 $('status').textContent='Local files: '+loaded.join(' | ')+(missing.length?' · Unavailable: '+missing.join('; '):'')+'. Coverage reflects only the pilot extract, not all Tripoli.';
-$('geojson').disabled=$('csv').disabled=!all.length;
+$('geojson').disabled=$('csv').disabled=!primary.length;
 $('generate').disabled=!(r.length&&bl.length);
 }catch(err){$('status').textContent='Local dataset unavailable: '+err.message+'. No public Overpass request was made.'}finally{$('load').disabled=false}
 };
@@ -77,4 +77,5 @@ $('sourceFile').onchange=async ev=>{const file=ev.target.files?.[0];if(!file)ret
 $('clearSource').onclick=()=>{importedLayer.clearLayers();importedCollection=null;$('sourceFile').value='';$('sourceStats').textContent='No additional dataset imported.';$('sourceWarning').textContent=''};
 $('fitSource').onclick=()=>{let b=importedLayer.getBounds();if(b.isValid())map.fitBounds(b,{padding:[20,20]})};
 map.on('moveend',()=>{if(importedCollection)summarizeImported()});
+window.addEventListener('load',()=>setTimeout(()=>$('load').click(),450));
 </script></body></html>
