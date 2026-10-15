@@ -8,7 +8,7 @@ maxZoom:19,maxNativeZoom:19,attribution:'&copy; <a href="https://www.openstreetm
 const baseFilters={voyager:'none',osm:'saturate(.82) contrast(1.05)',light:'grayscale(.74) brightness(1.10) contrast(.88)'};
 function applyBasemapStyle(value){const el=currentBase.getContainer();if(el)el.style.filter=baseFilters[value]||'none'}
 currentBase.on('load',()=>applyBasemapStyle(document.getElementById('mapStyle')?.value||'voyager'));
-let data=null;const roads=L.geoJSON(null,{style:{color:'#ffffff',weight:5,opacity:1},onEachFeature:(f,l)=>l.bindPopup(info(f))}).addTo(map),buildings=L.geoJSON(null,{style:{color:'#aab5b3',weight:0.7,fillColor:'#d4dad6',fillOpacity:.93},onEachFeature:(f,l)=>l.bindPopup(info(f))}).addTo(map);
+let data=null;const roads=L.geoJSON(null,{style:{color:'#ffffff',weight:5,opacity:1},onEachFeature:(f,l)=>l.bindPopup(info(f))}).addTo(map),buildings=L.geoJSON(null,{style:{color:'#c77e15',weight:1.2,fillColor:'#f3af44',fillOpacity:.52},onEachFeature:(f,l)=>l.bindPopup(info(f))}).addTo(map);
 function safe(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function info(f){let p=f.properties;return '<b>'+safe(p.name||p.street||p.type)+'</b><br>OSM #'+safe(p.id)+(p.number?'<br>No. '+safe(p.number):'')}
 function feature(e){let c=(e.geometry||[]).map(p=>[p.lon,p.lat]);if(c.length<2)return null;let polygon=!!e.tags?.building&&c.length>3&&c[0][0]===c.at(-1)[0]&&c[0][1]===c.at(-1)[1];return{type:'Feature',properties:{id:e.id,type:e.tags?.building?'building':'road',name:e.tags?.name||'',street:e.tags?.['addr:street']||'',number:e.tags?.['addr:housenumber']||''},geometry:{type:polygon?'Polygon':'LineString',coordinates:polygon?[c]:c}}}
 function download(name,mime,content){let url=URL.createObjectURL(new Blob([content],{type:mime})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
@@ -34,8 +34,8 @@ function renderPlaces(){
  const priority=visible.filter(f=>f.properties.name).concat(visible.filter(f=>!f.properties.name)).slice(0,limit);
  for(const f of priority){const p=f.properties,latlng=[f.geometry.coordinates[1],f.geometry.coordinates[0]];
  const marker=L.circleMarker(latlng,{radius:zoom>=16?4:3,color:'#fff',weight:1,fillColor:'#27957d',fillOpacity:.9});
- marker.bindPopup('<b>'+safe(p.name||'Mapped place')+'</b><br>Overture place record');overtureOverlay.addLayer(marker);
- if(zoom>=16&&p.name){const label=L.marker(latlng,{interactive:false,icon:L.divIcon({className:'poi-label',html:safe(p.name),iconSize:null,iconAnchor:[-8,15]})});overtureOverlay.addLayer(label)}
+ marker.bindPopup('<b>'+safe(p.name||'Mapped place')+'</b><br>'+safe(p.category||'Overture place record'));overtureOverlay.addLayer(marker);
+
  }}
 $('togglePlaces').onchange=renderPlaces;
 map.on('zoomend moveend',renderPlaces);
