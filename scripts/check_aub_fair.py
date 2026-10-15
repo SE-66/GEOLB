@@ -29,7 +29,7 @@ def main():
                 if g.is_valid and not g.is_empty and g.geom_type in ("Polygon","MultiPolygon"):reference.append(g)
             except Exception:pass
         ix=json.loads((ROOT/"index.json").read_text());seen=set();geos=[]
-        extent=box(*[v for i in range(4) for v in []]) if False else (box(*reference[0].bounds) if reference else box(35.8,34.4,35.9,34.48))
+        extent=(box(*reference[0].bounds) if reference else box(35.8,34.4,35.9,34.48))
         for g in reference[1:]:extent=extent.union(g).envelope
         for t in ix["tiles"]:
             if t["type"]!="building" or t["status"]!="ok" or not box(*t["bbox"]).intersects(extent):continue
