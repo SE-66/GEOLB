@@ -22,8 +22,8 @@ def sanitize(features,kind,tile_bounds):
             if not g.is_valid or g.is_empty:invalid+=1;continue
             if kind=='segment' and (g.bounds[2]-g.bounds[0]>0.5 or g.bounds[3]-g.bounds[1]>0.5):outliers+=1;continue
             if not g.intersects(tile_bounds):outside+=1;continue
-            if not tile_bounds.covers(g):
-                g=g.intersection(tile_bounds);clipped+=1
+            if not REGION.covers(g):
+                g=g.intersection(REGION);clipped+=1
             wanted={'building':('Polygon','MultiPolygon'),'segment':('LineString','MultiLineString'),'place':('Point','MultiPoint')}[kind]
             if g.geom_type not in wanted:
                 parts=[x for x in getattr(g,'geoms',[]) if x.geom_type in wanted]
