@@ -3,6 +3,73 @@
   "source_url": "https://icilgis.aub.edu.lb/server/rest/services/Hosted/tripoliFair_Layers_GDB/FeatureServer/3",
   "license": "Not declared on accessible service metadata; analysis only, no geometry republished",
   "coverage": "Tripoli Fair site, not regional coverage",
+  "provenance": {
+    "copyrightText": "",
+    "description": "BuildingsPoly",
+    "date_source_fields": [
+      "image_url",
+      "firstdate",
+      "lastdate",
+      "firstyear",
+      "lastyear"
+    ],
+    "field_values_summary": {
+      "image_url": {
+        "count_present": 4,
+        "examples": [
+          "https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7732599/24174421.jpg",
+          "https://mdxdv.artstor.org/thumb/imgstor/size2/sslps/c7732599/24174341.jpg"
+        ]
+      },
+      "firstdate": {
+        "count_present": 85,
+        "examples": [
+          "-94694400000",
+          "-63158400000",
+          "-126230400000",
+          "31536000000",
+          "946684800000"
+        ]
+      },
+      "lastdate": {
+        "count_present": 85,
+        "examples": [
+          "218342563200000",
+          "946598400000",
+          "-221011200000",
+          "-94780800000",
+          "-63244800000"
+        ]
+      },
+      "firstyear": {
+        "count_present": 85,
+        "examples": [
+          "1966",
+          "1971",
+          "2000",
+          "1994",
+          "2008"
+        ]
+      },
+      "lastyear": {
+        "count_present": 85,
+        "examples": [
+          "8888",
+          "1999",
+          "1962",
+          "1966",
+          "1964"
+        ]
+      }
+    },
+    "reuse_approved": false,
+    "date_verified": false,
+    "reason": "No explicit grant of reuse in public metadata; feature dates may describe historic structures, not imagery acquisition."
+  },
+  "integration": {
+    "approved_count": 0,
+    "reason": "Await explicit rights and independently dated imagery verification"
+  },
   "status": "completed",
   "matching": "Best polygon intersection-over-union; high >=0.65, ambiguous >=0.15, candidate missing <0.15",
   "metrics": {
