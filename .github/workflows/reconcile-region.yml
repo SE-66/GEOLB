@@ -31,7 +31,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/greater-tripoli/*_osm_reconciled.geojson data/greater-tripoli/reconciliation.json
+          git add data/greater-tripoli/*_osm_reconciled.geojson data/greater-tripoli/reconciliation.json data/greater-tripoli/building_evidence.json
           if ! git diff --cached --quiet; then
             git commit -m "data: reconcile OSM and Overture Greater Tripoli buildings"
             for attempt in 1 2 3 4 5; do
