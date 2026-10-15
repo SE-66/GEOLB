@@ -7,6 +7,9 @@ on:
       - 'studio.html'
       - 'scripts/refresh_data.py'
       - '.github/workflows/refresh-data.yml'
+concurrency:
+  group: geolb-data-refresh
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -30,4 +33,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/tripoli/*.geojson data/tripoli/manifest.json
-          git diff --cached --quiet || (git commit -m "data: refresh Tripoli pilot" && git push)
+          if ! git diff --cached --quiet; then
+            git commit -m "data: refresh Tripoli pilot"
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              echo "Concurrent push detected; retrying ($attempt/5)"
+              sleep 3
+            done
+            echo "Unable to publish geographic data after retries"
+            exit 1
+          fi
