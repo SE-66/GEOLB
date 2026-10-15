@@ -1,0 +1,25 @@
+{
+  "bbox": "35.837,34.428,35.865,34.448",
+  "sources": {
+    "building": {
+      "count": 4180,
+      "truncated": false
+    },
+    "segment": {
+      "count": 1480,
+      "truncated": false
+    },
+    "place": {
+      "count": 1057,
+      "truncated": false
+    },
+    "osm_buildings": {
+      "count": 0,
+      "truncated": false
+    },
+    "osm_roads": {
+      "count": 0,
+      "truncated": false
+    }
+  }
+}
