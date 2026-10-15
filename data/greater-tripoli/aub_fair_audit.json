@@ -83,6 +83,6 @@
     "Reference date, accuracy, and rights unknown.",
     "Only applicable to AUB layer spatial coverage.",
     "Candidate missing does not mean confirmed actual missing building.",
-    "No source geometry copied or distributed."
+    "No source building polygons copied; candidate point locations are reference-derived and have unconfirmed reuse rights."
   ]
 }
