@@ -26,7 +26,11 @@ $('load').disabled=true;$('status').textContent='Loading geographic data hosted 
 try{
 let loaded=[],all=[],overture=[],missing=[];
 for(const spec of localDatasets){let response=await fetch(spec.file,{cache:'no-store'});if(!response.ok){missing.push(spec.file+' HTTP '+response.status);continue}let payload=await response.json();if(payload.type!=='FeatureCollection')throw Error('Invalid GeoJSON: '+spec.file);let features=payload.features.map((f,i)=>normalizeLocal(f,spec.type,i)).filter(Boolean);all.push(...features);loaded.push(spec.label+': '+features.length)}
-for(const spec of overtureDatasets){try{let response=await fetch(spec.file,{cache:'no-store'});if(!response.ok)continue;let payload=await response.json();if(payload.type!=='FeatureCollection')continue;overture.push(...payload.features.filter(f=>f?.geometry).map((f,i)=>normalizeLocal(f,spec.kind,i)));loaded.push('Overture '+spec.kind+': '+payload.features.length)}catch(e){missing.push(spec.file+': '+e.message)}}
+let regionalManifest=null;
+try{const res=await fetch('./data/greater-tripoli/index.json',{cache:'no-store'});if(res.ok)regionalManifest=await res.json()}catch{}
+const regionalTiles=regionalManifest?.tiles?.filter(t=>t.status==='ok').map(t=>({file:t.path,kind:t.type}))||[];
+const effectiveOverture=regionalTiles.length?regionalTiles:overtureDatasets;
+for(const spec of effectiveOverture){try{let response=await fetch(spec.file,{cache:'no-store'});if(!response.ok)continue;let payload=await response.json();if(payload.type!=='FeatureCollection')continue;overture.push(...payload.features.filter(f=>f?.geometry).map((f,i)=>normalizeLocal(f,spec.kind,i)));loaded.push('Overture '+spec.kind+': '+payload.features.length)}catch(e){missing.push(spec.file+': '+e.message)}}
 if(!all.length&&!overture.length)throw Error('No local data files available. Run GitHub Actions → Refresh Tripoli open geodata. Missing: '+missing.join(', '));
 const ospRoads=all.filter(f=>f.properties.type==='road'),ospBuildings=all.filter(f=>f.properties.type==='building');const ovRoads=overture.filter(f=>f.properties.type==='road'&&f.geometry.type.includes('Line')),ovBuildings=overture.filter(f=>f.properties.type==='building'&&f.geometry.type.includes('Polygon'));const ovPlaces=overture.filter(f=>f.properties.type==='place');const primary=[...(ospRoads.length?ospRoads:ovRoads),...(ospBuildings.length?ospBuildings:ovBuildings)];data={type:'FeatureCollection',features:primary};
 const r=primary.filter(f=>f.properties.type==='road'),bl=primary.filter(f=>f.properties.type==='building'),nc=r.filter(f=>f.properties.name),hn=bl.filter(f=>f.properties.number);
@@ -35,7 +39,7 @@ buildings.clearLayers().addData({type:'FeatureCollection',features:bl});
 overtureOverlay.clearLayers().addData({type:'FeatureCollection',features:ovPlaces});
 $('roads').textContent=r.length||'—';$('buildings').textContent=bl.length||'—';$('named').textContent=r.length?nc.length:'—';$('numbered').textContent=bl.length?hn.length:'—';
 $('coverage').textContent='Mapped road segments with names: '+(r.length?Math.round(nc.length/r.length*100)+'%':'unavailable')+' · Buildings with numbers: '+(bl.length?Math.round(hn.length/bl.length*100)+'%':'unavailable')+'. Rendered from '+(ospBuildings.length?'OSM buildings':'Overture buildings')+' and '+(ospRoads.length?'OSM roads':'Overture segments')+'. Places overlay: '+ovPlaces.length+'. Not deduplicated.';
-$('status').textContent='Local files: '+loaded.join(' | ')+(missing.length?' · Unavailable: '+missing.join('; '):'')+'. Coverage reflects only the pilot extract, not all Tripoli.';
+$('status').textContent='Local files: '+loaded.join(' | ')+(missing.length?' · Unavailable: '+missing.join('; '):'')+'. Coverage uses '+(regionalTiles.length?'regional tiled Overture data':'central pilot data')+'. Regional rectangle is not an official boundary.';
 $('geojson').disabled=$('csv').disabled=!primary.length;
 $('generate').disabled=!(r.length&&bl.length);
 }catch(err){$('status').textContent='Local dataset unavailable: '+err.message+'. No public Overpass request was made.'}finally{$('load').disabled=false}
