@@ -1,6 +1,11 @@
 name: Expand Greater Tripoli geodata
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/refresh_region.py'
+      - '.github/workflows/expand-region.yml'
 permissions:
   contents: write
 concurrency:
