@@ -6,11 +6,35 @@ No arbitrary feature truncation: every successful tile is preserved; failed tile
 import json, subprocess, sys
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from shapely.geometry import shape, mapping, box
+from shapely.ops import unary_union
 WEST,SOUTH,EAST,NORTH=35.80,34.40,35.90,34.48
 COLS,ROWS=3,3
 OUT=Path("data/greater-tripoli")
 TYPES=("building","segment","place")
 OUT.mkdir(parents=True,exist_ok=True)
+REGION=box(WEST,SOUTH,EAST,NORTH)
+def sanitize(features,kind):
+    cleaned=[];invalid=outside=clipped=outliers=0
+    for f in features:
+        try:
+            g=shape(f['geometry'])
+            if not g.is_valid or g.is_empty:invalid+=1;continue
+            if kind=='segment' and (g.bounds[2]-g.bounds[0]>0.5 or g.bounds[3]-g.bounds[1]>0.5):outliers+=1;continue
+            if not g.intersects(REGION):outside+=1;continue
+            if not REGION.covers(g):
+                g=g.intersection(REGION);clipped+=1
+            wanted={'building':('Polygon','MultiPolygon'),'segment':('LineString','MultiLineString'),'place':('Point','MultiPoint')}[kind]
+            if g.geom_type not in wanted:
+                parts=[x for x in getattr(g,'geoms',[]) if x.geom_type in wanted]
+                if not parts:invalid+=1;continue
+                g=unary_union(parts)
+            if g.is_empty:invalid+=1;continue
+            f['geometry']=mapping(g)
+            cleaned.append(f)
+        except Exception:invalid+=1
+    return cleaned,{'invalid':invalid,'outside':outside,'outliers':outliers,'clipped':clipped}
+
 def task(row,col,kind):
     w=WEST+(EAST-WEST)*col/COLS;e=WEST+(EAST-WEST)*(col+1)/COLS
     s=SOUTH+(NORTH-SOUTH)*row/ROWS;n=SOUTH+(NORTH-SOUTH)*(row+1)/ROWS
@@ -22,7 +46,9 @@ def task(row,col,kind):
         subprocess.run(cmd,check=True,timeout=240,capture_output=True,text=True)
         content=json.loads(target.read_text())
         if content.get("type")!="FeatureCollection":raise ValueError("Expected FeatureCollection")
-        return {"tile":key,"type":kind,"path":str(target).replace("data/","./data/"),"count":len(content.get("features",[])),"bbox":[w,s,e,n],"status":"ok"}
+        cleaned,quality=sanitize(content.get('features',[]),kind)
+        target.write_text(json.dumps({'type':'FeatureCollection','features':cleaned},ensure_ascii=False,separators=(',',':')))
+        return {"tile":key,"type":kind,"path":str(target).replace("data/","./data/"),"count":len(cleaned),"source_count":len(content.get('features',[])),"sanitization":quality,"bbox":[w,s,e,n],"status":"ok"}
     except Exception as error:
         target.unlink(missing_ok=True)
         return {"tile":key,"type":kind,"bbox":[w,s,e,n],"status":"error","message":str(error)}
