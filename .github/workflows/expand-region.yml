@@ -20,9 +20,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install overturemaps
+      - name: Install geographic dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y osmium-tool
+          python -m pip install overturemaps 'shapely>=2.0'
       - name: Download greater Tripoli tiles
         run: python scripts/refresh_region.py
+      - name: Reconcile after geographic sanitization
+        run: python scripts/reconcile_region.py
+      - name: Validate geographic integrity
+        run: python scripts/validate_region.py
       - name: Commit data without overwriting concurrent changes
         run: |
           git config user.name "github-actions[bot]"
