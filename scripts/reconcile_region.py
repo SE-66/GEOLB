@@ -49,6 +49,7 @@ def main():
     counts=collections.Counter()
     osm_seen=set()
     overture_best=[0.0]*len(overture_items)
+    overture_best=[0.0]*len(overture_items)
     osm_results=[]
     with tempfile.TemporaryDirectory() as td:
         for f in osm_features(Path(td)):
@@ -68,6 +69,7 @@ def main():
                     iou=(g.intersection(other).area/union) if union else 0
                     if iou>best[1]:best=(k,iou)
                     if iou>overture_best[k]:overture_best[k]=iou
+                    if iou>overture_best[k]:overture_best[k]=iou
                 osm_results.append({"id":sid,"best_iou":round(max(best[1],0),4),"matched_overture_id":str(overture_items[best[0]][0].get("id","")) if best[0]>=0 else None})
                 if best[1]>=.80:
                     counts["matched"]+=1
@@ -84,6 +86,11 @@ def main():
     counts["osm_unique"]=len(osm_seen)
     counts["retained_osm_only"]=counts["osm_only"]
     counts["ambiguous_not_merged"]=counts["possible_match"]
+    corroborated=sum(v>=.8 for v in overture_best)
+    uncertain=sum(.2<=v<.8 for v in overture_best)
+    uncorroborated=sum(v<.2 for v in overture_best)
+    assessments=[{"id":str(item[0].get("id","")),"best_osm_iou":round(overture_best[i],4),"cross_source_status":"corroborated" if overture_best[i]>=.8 else "ambiguous" if overture_best[i]>=.2 else "unmatched"} for i,item in enumerate(overture_items)]
+    (ROOT/"building_evidence.json").write_text(json.dumps({"method":"spatial polygon overlap with independent OSM footprints","threshold":.8,"warning":"Corroborated means similar OSM geometry, not ground-truth verified.","counts":{"corroborated":corroborated,"ambiguous":uncertain,"unmatched":uncorroborated},"buildings":assessments},separators=(",",":")))
     corroborated=sum(v>=.8 for v in overture_best)
     uncertain=sum(.2<=v<.8 for v in overture_best)
     uncorroborated=sum(v<.2 for v in overture_best)
