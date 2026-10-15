@@ -1,0 +1,60 @@
+name: Deploy GeoLB to Cloudflare Workers
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'address.html'
+      - 'verify.html'
+      - 'studio.html'
+      - 'deployment-check.json'
+      - 'data/**'
+      - 'wrangler.toml'
+      - '.github/workflows/deploy-cloudflare.yml'
+  workflow_dispatch:
+concurrency:
+  group: geolb-cloudflare-deploy
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Cloudflare credentials
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CF_TOKEN" ] || [ -z "$CF_ACCOUNT" ]; then
+            echo "::error::Configure repository Actions secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID before Cloudflare deployment can run."
+            exit 1
+          fi
+      - name: Package static map site
+        run: |
+          mkdir -p dist
+          cp index.html address.html verify.html studio.html deployment-check.json dist/
+          cp -r data dist/
+      - name: Publish to Cloudflare Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '4'
+          command: deploy
+      - name: Check live deployment marker
+        run: |
+          EXPECTED=$(python -c "import json; print(json.load(open('deployment-check.json'))['marker'])")
+          for i in 1 2 3 4 5 6; do
+            if curl -fsS --max-time 20 'https://geolb.sergemoubayed29.workers.dev/deployment-check.json' | grep -q "$EXPECTED"; then
+              echo "Verified deployed marker: $EXPECTED"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::Cloudflare deploy ran, but deployed marker was not served by the expected Worker hostname."
+          exit 1
