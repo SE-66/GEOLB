@@ -1,0 +1,21 @@
+{
+  "source": "AUB ICILGIS tripoliFair_Layers_GDB BuildingsPoly layer",
+  "source_url": "https://icilgis.aub.edu.lb/server/rest/services/Hosted/tripoliFair_Layers_GDB/FeatureServer/3",
+  "license": "Not declared on accessible service metadata; analysis only, no geometry republished",
+  "coverage": "Tripoli Fair site, not regional coverage",
+  "status": "completed",
+  "matching": "Best polygon intersection-over-union; high >=0.65, ambiguous >=0.15, candidate missing <0.15",
+  "metrics": {
+    "reference_polygons": 85,
+    "geolb_polygons_intersecting_source_extent": 70,
+    "candidate_missing": 39,
+    "possible_shape_disagreement": 22,
+    "high_overlap": 24
+  },
+  "caveats": [
+    "Reference date, accuracy, and rights unknown.",
+    "Only applicable to AUB layer spatial coverage.",
+    "Candidate missing does not mean confirmed actual missing building.",
+    "No source geometry copied or distributed."
+  ]
+}
