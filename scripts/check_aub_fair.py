@@ -52,8 +52,9 @@ def main():
                     if g.is_valid and g.intersects(extent):geos.append(g)
                 except Exception:pass
         tree=STRtree(geos)
+        candidates=[]
         results={"reference_polygons":len(reference),"geolb_polygons_intersecting_source_extent":len(geos),"candidate_missing":0,"possible_shape_disagreement":0,"high_overlap":0}
-        for g in reference:
+        for ridx,g in enumerate(reference):
             best=0.0
             for k in tree.query(g):
                 h=geos[int(k)]
@@ -62,8 +63,12 @@ def main():
                     if union:best=max(best,g.intersection(h).area/union)
             if best>=.65:results["high_overlap"]+=1
             elif best>=.15:results["possible_shape_disagreement"]+=1
-            else:results["candidate_missing"]+=1
-        output={**metadata,"provenance":provenance,"integration":{"approved_count":0,"reason":"Await explicit rights and independently dated imagery verification"},"status":"completed","matching":"Best polygon intersection-over-union; high >=0.65, ambiguous >=0.15, candidate missing <0.15","metrics":results,"caveats":["Reference date, accuracy, and rights unknown.","Only applicable to AUB layer spatial coverage.","Candidate missing does not mean confirmed actual missing building.","No source geometry copied or distributed."]}
+            else:
+                results["candidate_missing"]+=1
+                p=g.representative_point()
+                candidates.append({"type":"Feature","geometry":{"type":"Point","coordinates":[round(p.x,6),round(p.y,6)]},"properties":{"id":"aub-fair-candidate-"+str(ridx),"classification":"candidate_missing","reference":"AUB Tripoli Fair BuildingsPoly","max_iou":round(best,4),"verified":False,"source_rights":"unconfirmed","warning":"Reference-derived candidate location, not a verified building"}})
+        (ROOT/"candidate_missing_points.geojson").write_text(json.dumps({"type":"FeatureCollection","features":candidates},separators=(",",":")))
+        output={**metadata,"provenance":provenance,"integration":{"approved_count":0,"reason":"Await explicit rights and independently dated imagery verification"},"status":"completed","matching":"Best polygon intersection-over-union; high >=0.65, ambiguous >=0.15, candidate missing <0.15","metrics":results,"caveats":["Reference date, accuracy, and rights unknown.","Only applicable to AUB layer spatial coverage.","Candidate missing does not mean confirmed actual missing building.","No source building polygons copied; candidate point locations are reference-derived and have unconfirmed reuse rights."]}
     except Exception as exc:
         output={**metadata,"status":"source_unavailable","error":str(exc)}
     (ROOT/"aub_fair_audit.json").write_text(json.dumps(output,indent=2))
