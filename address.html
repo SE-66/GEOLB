@@ -94,13 +94,13 @@ async function loadRegionalData(){
  const filename='/'+String(t.path).replace(/^\.\//,'');
  const response=await fetch(filename,{cache:'force-cache'});
  if(!response.ok)throw Error('HTTP '+response.status);
- const payload=await response.json();ingestFeatures(payload,t.type==='segment'?'road':t.type);
+ const payload=await response.json();const accepted=ingestFeatures(payload,t.type==='segment'?'road':t.type);if(t.type==='building'&&accepted===0&&t.count>0)failed.push(t.tile+' building: all '+t.count+' features rejected as duplicates');
  }catch(e){failed.push(t.tile+' '+t.type+': '+e.message)}
  done++;$('regionProgress').textContent=done+'/'+entries.length+' regional files · '+placeFeatures.length.toLocaleString()+' places';$('status').textContent='Greater Tripoli loading: '+done+'/'+entries.length+' tiles · '+allMapped.filter(x=>x.properties.type==='building').length+' buildings drawn'+(failed.length?' · '+failed.length+' failed':'');
  }}
  await Promise.all(Array.from({length:3},worker));
  await loadReconciliation();
- $('status').textContent='Greater Tripoli: '+done+'/'+entries.length+' tiles processed. '+allMapped.filter(x=>x.properties.type==='building').length+' building footprints rendered. '+(failed.length?'Missing tiles: '+failed.join('; '):'All regional tile requests succeeded.')+' Data is not yet deduplicated against OSM.';
+ $('status').textContent='Greater Tripoli: '+done+'/'+entries.length+' tiles processed. '+allMapped.filter(x=>x.properties.type==='building').length+' building footprints rendered. '+(failed.length?'Missing tiles: '+failed.join('; '):'All regional tile requests succeeded.')+' Source IDs are deduplicated across tiles; compare footprints for verification.';
  $('load').disabled=false;$('load').textContent='Reload regional data';automaticLoadStarted=false;
 }
 $('load').onclick=()=>{if(allMapped.length){loadedIds.road.clear();loadedIds.building.clear();loadedIds.place.clear();roads.clearLayers();buildings.clearLayers();overtureOverlay.clearLayers();placeFeatures=[];$('placeCount').textContent='0';allMapped=[];}loadRegionalData()};
