@@ -23,7 +23,7 @@ const overtureDatasets=[
 {file:'./data/tripoli/overture_segment.geojson',kind:'road'},
 {file:'./data/tripoli/overture_place.geojson',kind:'place'}
 ];
-function normalizeLocal(f,kind,i){const p=f.properties||{},g=f.geometry;if(!g)return null;const number=p['addr:housenumber']||p.addr_housenumber||'';return{type:'Feature',properties:{id:p['@id']||p.id||p.osm_id||('local-'+kind+'-'+i),type:kind,name:p.name||p.names?.primary||'',street:p['addr:street']||'',number,highway:p.highway||p.subtype||''},geometry:g}}
+function normalizeLocal(f,kind,i){const p=f.properties||{},g=f.geometry;if(!g)return null;const number=p['addr:housenumber']||p.addr_housenumber||'';return{type:'Feature',properties:{id:f.id||p['@id']||p.id||p.osm_id||('local-'+kind+'-'+i),type:kind,name:p.name||p.names?.primary||'',street:p['addr:street']||'',number,highway:p.highway||p.subtype||''},geometry:g}}
 let placeFeatures=[];
 const overtureOverlay=L.layerGroup().addTo(map);
 function renderPlaces(){
