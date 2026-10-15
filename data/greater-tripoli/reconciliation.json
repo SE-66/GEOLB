@@ -1,0 +1,25 @@
+{
+  "method": "polygon IoU",
+  "auto_match_threshold": 0.8,
+  "possible_match_threshold": 0.2,
+  "limitations": "Polygon agreement is not proof of the same real-world building. Source-only means missing from the other dataset, not necessarily missing physically. OSM-only and ambiguous polygons remain separately visible.",
+  "counts": {
+    "matched": 4519,
+    "possible_match": 2,
+    "overture_unique": 17923,
+    "osm_unique": 4521,
+    "retained_osm_only": 0,
+    "ambiguous_not_merged": 2
+  },
+  "files": [
+    "./data/greater-tripoli/r0c0_osm_reconciled.geojson",
+    "./data/greater-tripoli/r0c1_osm_reconciled.geojson",
+    "./data/greater-tripoli/r0c2_osm_reconciled.geojson",
+    "./data/greater-tripoli/r1c0_osm_reconciled.geojson",
+    "./data/greater-tripoli/r1c1_osm_reconciled.geojson",
+    "./data/greater-tripoli/r1c2_osm_reconciled.geojson",
+    "./data/greater-tripoli/r2c0_osm_reconciled.geojson",
+    "./data/greater-tripoli/r2c1_osm_reconciled.geojson",
+    "./data/greater-tripoli/r2c2_osm_reconciled.geojson"
+  ]
+}
