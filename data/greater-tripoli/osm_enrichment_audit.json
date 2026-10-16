@@ -1,0 +1,18 @@
+{
+  "source": "Geofabrik latest Lebanon OpenStreetMap extract",
+  "license": "ODbL-1.0",
+  "bounds": [
+    35.8,
+    34.4,
+    35.9,
+    34.48
+  ],
+  "counts": {
+    "entrance": 3,
+    "address": 29,
+    "road_name": 248
+  },
+  "total": 280,
+  "status": "source_records_not_independently_verified",
+  "note": "Point anchors for polygons/roads are approximate, not authoritative entrances or address parcel centroids."
+}
