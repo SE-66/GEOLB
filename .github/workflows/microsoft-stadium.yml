@@ -1,0 +1,37 @@
+name: Compare open Microsoft Stadium footprints
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/audit_microsoft_stadium.py
+      - .github/workflows/microsoft-stadium.yml
+permissions:
+  contents: write
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'shapely>=2.0'
+      - name: Compare permitted satellite-derived footprint dataset
+        run: python -u scripts/audit_microsoft_stadium.py
+      - name: Publish evidence candidates and audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/greater-tripoli/stadium_microsoft_audit.json data/greater-tripoli/stadium_microsoft_candidates.geojson
+          if ! git diff --cached --quiet; then
+            git commit -m "data: compare Microsoft Stadium building footprints"
+            for attempt in 1 2 3 4; do
+              git fetch origin main
+              git rebase origin/main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep 3
+            done
+            exit 1
+          fi
