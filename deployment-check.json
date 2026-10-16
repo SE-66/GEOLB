@@ -1,5 +1,5 @@
 {
   "app": "GeoLB",
-  "marker": "geolb-full-region-microsoft-2476-20261016",
-  "purpose": "Verify published Greater Tripoli Microsoft candidate polygons"
+  "marker": "geolb-osm-enrichment-280-20261016",
+  "purpose": "Publish and verify 280 OSM source-attributed address entrance and named-road records"
 }
