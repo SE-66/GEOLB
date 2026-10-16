@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare permissively licensed Microsoft satellite-derived footprint tiles with GeoLB Stadium.
+"""Compare permissively licensed Microsoft satellite-derived footprint tiles with GeoLB Greater Tripoli.
 Candidate geometries are never added to the approved inventory automatically.
 """
 import csv,gzip,io,json,math,urllib.request
@@ -8,7 +8,7 @@ from shapely.geometry import shape, box, mapping
 from shapely.strtree import STRtree
 
 ROOT=Path("data/greater-tripoli")
-AOI=box(35.840,34.429,35.864,34.449)
+AOI=box(35.800,34.400,35.900,34.480)
 DATASET="https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv"
 def quad_bounds(q):
  x=y=0
@@ -45,7 +45,7 @@ def main():
    g=shape(f['geometry'])
    if g.is_valid and g.intersects(AOI):overture[fid]=g
  ov=list(overture.values());tree=STRtree(ov)
- for url,q in selected[:15]:
+ for url,q in selected:
   try:
    print('Reading',url[:140],flush=True)
    with urlopen(url) as r:
@@ -73,9 +73,9 @@ def main():
    processed.append(url)
   except Exception as exc:errors.append({'url':url,'error':str(exc)[:250]})
  out={'type':'FeatureCollection','features':candidates}
- (ROOT/'stadium_microsoft_candidates.geojson').write_text(json.dumps(out,separators=(',',':')))
+ (ROOT/'greater_tripoli_microsoft_candidates.geojson').write_text(json.dumps(out,separators=(',',':')))
  status='complete_catalog_scan' if len(processed)==len(selected) and not errors else 'partial_or_failed_scan'
  report={'status':status,'source':'Microsoft Global ML Building Footprints 2026-08-13','license':'CDLA Permissive 2.0','source_catalog':DATASET,'area_bbox':list(AOI.bounds),'catalog_matching_links':len(selected),'links_processed':len(processed),'errors':errors,'overture_footprints_in_aoi':len(overture),'candidate_footprints':len(candidates),'integrated_approved':0,'warning':'Low IoU candidates are unverified satellite-derived polygons; needs secondary corroboration and duplicate review before any main map addition.'}
- (ROOT/'stadium_microsoft_audit.json').write_text(json.dumps(report,indent=2))
+ (ROOT/'greater_tripoli_microsoft_audit.json').write_text(json.dumps(report,indent=2))
  print(json.dumps(report,indent=2),flush=True)
 if __name__=='__main__':main()
