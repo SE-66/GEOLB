@@ -1,5 +1,5 @@
 {
   "app": "GeoLB",
-  "marker": "cloudflare-git-build-validation-20261016-c7a2",
-  "purpose": "Fresh commit to check Cloudflare native Git build and GitHub Actions delivery after dist configuration fix"
+  "marker": "geolb-full-region-microsoft-2476-20261016",
+  "purpose": "Verify published Greater Tripoli Microsoft candidate polygons"
 }
