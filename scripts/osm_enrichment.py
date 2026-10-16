@@ -39,6 +39,8 @@ with tempfile.TemporaryDirectory() as tmp:
    seen.add(key)
    record={'type':'Feature','geometry':{'type':'Point','coordinates':[lon,lat]},'properties':{'source':'OpenStreetMap / Geofabrik','license':'ODbL-1.0','source_id':ident,'kind':kind,'housenumber':house,'street':str(tags.get('addr:street') or ''),'entrance':entrance,'name':str(tags.get('name') or ''),'name_ar':str(tags.get('name:ar') or ''),'name_en':str(tags.get('name:en') or ''),'name_fr':str(tags.get('name:fr') or ''),'review_status':'source_record_unverified'}}
    features.append(record);counts[kind]+=1
+  except (ValueError,TypeError,KeyError,IndexError):
+   continue
 out={'type':'FeatureCollection','features':features}
 (ROOT/'osm_enrichment.geojson').write_text(json.dumps(out,ensure_ascii=False,separators=(',',':')))
 (ROOT/'osm_enrichment_audit.json').write_text(json.dumps({'source':'Geofabrik latest Lebanon OpenStreetMap extract','license':'ODbL-1.0','bounds':[35.8,34.4,35.9,34.48],'counts':dict(counts),'total':len(features),'status':'source_records_not_independently_verified','note':'Point anchors for polygons/roads are approximate, not authoritative entrances or address parcel centroids.'},indent=2))
