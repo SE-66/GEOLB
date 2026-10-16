@@ -10,6 +10,8 @@ on:
       - 'deployment-check.json'
       - 'data/**'
       - 'wrangler.toml'
+      - 'package.json'
+      - 'scripts/build-site.cjs'
       - '.github/workflows/deploy-cloudflare.yml'
   workflow_dispatch:
 concurrency:
@@ -35,10 +37,7 @@ jobs:
             exit 1
           fi
       - name: Package static map site
-        run: |
-          mkdir -p dist
-          cp index.html address.html verify.html studio.html deployment-check.json dist/
-          cp -r data dist/
+        run: npm run build
       - name: Publish to Cloudflare Worker
         uses: cloudflare/wrangler-action@v3
         with:
