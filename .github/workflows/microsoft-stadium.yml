@@ -1,4 +1,4 @@
-name: Compare open Microsoft Stadium footprints
+name: Compare open Microsoft Greater Tripoli footprints
 on:
   workflow_dispatch:
   push:
@@ -24,7 +24,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/greater-tripoli/stadium_microsoft_audit.json data/greater-tripoli/stadium_microsoft_candidates.geojson
+          git add data/greater-tripoli/greater_tripoli_microsoft_audit.json data/greater-tripoli/greater_tripoli_microsoft_candidates.geojson
           if ! git diff --cached --quiet; then
             git commit -m "data: compare Microsoft Stadium building footprints"
             for attempt in 1 2 3 4; do
