@@ -1,0 +1,39 @@
+{
+  "area": "Provisional Municipal Stadium / Abdul Latif El Bissar review region",
+  "bbox": [
+    35.84,
+    34.429,
+    35.864,
+    34.449
+  ],
+  "source_comparisons": [
+    {
+      "source": "Overture",
+      "result": "existing footprints available via stadium_review.geojson",
+      "independent": false
+    },
+    {
+      "source": "OpenStreetMap via Geofabrik",
+      "result": "0 of 24 OSM-only candidate polygons intersect this review bounding box",
+      "independent": false
+    },
+    {
+      "source": "AUB Tripoli Fair BuildingsPoly",
+      "result": "different geographic coverage; 39 reference-derived points cannot be applied here",
+      "independent": false
+    },
+    {
+      "source": "OpenAerialMap",
+      "result": "open imagery catalog identified; no recent high-resolution georeferenced image for this exact bbox independently confirmed yet",
+      "independent_imagery_confirmed": false
+    }
+  ],
+  "verified_new_buildings": 0,
+  "verified_geometry_corrections": 0,
+  "status": "requires_qualified_imagery_or_field_review",
+  "limitations": [
+    "The focus bbox is approximate rather than a confirmed user-drawn study area.",
+    "Lack of OSM-only candidate overlap does not demonstrate geographic completeness.",
+    "Visual comparison to copyrighted web-map imagery cannot automatically authorize extraction/tracing of polygons."
+  ]
+}
