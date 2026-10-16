@@ -1,5 +1,5 @@
 {
   "app": "GeoLB",
-  "marker": "deploy-probe-20261015-credentials-recheck-b23e9",
+  "marker": "deploy-retry-20261016-after-build-settings-1792125111633",
   "purpose": "Verify whether GitHub main commits propagate to Cloudflare Worker hosting"
 }
