@@ -1,5 +1,5 @@
 {
   "app": "GeoLB",
-  "marker": "deploy-retry-20261016-after-build-settings-1792125111633",
-  "purpose": "Verify whether GitHub main commits propagate to Cloudflare Worker hosting"
+  "marker": "cloudflare-git-build-validation-20261016-c7a2",
+  "purpose": "Fresh commit to check Cloudflare native Git build and GitHub Actions delivery after dist configuration fix"
 }
