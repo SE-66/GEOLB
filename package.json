@@ -1,0 +1,12 @@
+{
+  "name": "geolb",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node scripts/build-site.cjs",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.151.0"
+  }
+}
