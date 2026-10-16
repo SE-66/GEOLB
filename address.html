@@ -103,13 +103,24 @@ async function loadRegionalData(){
  let next=0,done=0,failed=[];
  async function worker(){while(next<entries.length){const t=entries[next++];try{
  const filename='/'+String(t.path).replace(/^\.\//,'');
- const response=await fetch(filename,{cache:'force-cache'});
+ const response=await fetch(filename,{cache:'no-store'});
  if(!response.ok)throw Error('HTTP '+response.status);
  const payload=await response.json();const accepted=ingestFeatures(payload,t.type==='segment'?'road':t.type);if(t.type==='building'&&accepted===0&&t.count>0)failed.push(t.tile+' building: all '+t.count+' features rejected as duplicates');
  }catch(e){failed.push(t.tile+' '+t.type+': '+e.message)}
  done++;$('regionProgress').textContent=done+'/'+entries.length+' regional files · '+placeFeatures.length.toLocaleString()+' places';$('status').textContent='Greater Tripoli loading: '+done+'/'+entries.length+' tiles · '+allMapped.filter(x=>x.properties.type==='building').length+' buildings drawn'+(failed.length?' · '+failed.length+' failed':'');
  }}
  await Promise.all(Array.from({length:3},worker));
+ try{
+ const check=await fetch('/data/greater-tripoli/validation.json',{cache:'no-store'});
+ if(check.ok){const v=await check.json();const expected=v.unique_id_counts||{};
+ const actualBuildings=allMapped.filter(f=>f.properties.type==='building').length;
+ const actualRoads=allMapped.filter(f=>f.properties.type==='road').length;
+ if(expected.building!==actualBuildings||expected.segment!==actualRoads){
+  failed.push('Dataset mismatch: loaded '+actualBuildings+' buildings / '+actualRoads+' roads, validation expects '+expected.building+' buildings / '+expected.segment+' roads');
+  $('coverage').textContent+=' WARNING: Loaded files disagree with validated inventory; refresh the page to retry.';
+ }
+ }
+ }catch(err){failed.push('Validation metadata unavailable: '+err.message)}
  await Promise.all([loadReconciliation(),loadCandidates(),loadStadiumReview(),loadMicrosoft()]);
  $('status').textContent='Greater Tripoli: '+done+'/'+entries.length+' tiles processed. '+allMapped.filter(x=>x.properties.type==='building').length+' building footprints rendered. '+(failed.length?'Missing tiles: '+failed.join('; '):'All regional tile requests succeeded.')+' Source IDs are deduplicated across tiles; compare footprints for verification.';
  $('load').disabled=false;$('load').textContent='Reload regional data';automaticLoadStarted=false;
