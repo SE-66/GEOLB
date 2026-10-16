@@ -1,0 +1,498 @@
+{
+  "method": "OSM-only polygons from prior reconciliation, screened for internal tile-boundary artifacts",
+  "counts": {
+    "total": 24,
+    "on_internal_tile_seams": 22,
+    "in_stadium_focus": 0,
+    "approved_for_integration": 0
+  },
+  "source_provenance": {
+    "source": "OpenStreetMap via Geofabrik",
+    "license": "ODbL",
+    "feature_acquisition_dates": "not preserved in reconciliation outputs",
+    "independent_imagery": "not yet examined"
+  },
+  "caution": "Tile-seam proximity is a review flag, not proof of geometry invalidity; all OSM-only polygons need independent confirmation before base count changes.",
+  "records": [
+    {
+      "id": 1,
+      "source_id": "01060000000100000001030000000100000005000000C443183F8DEA414020A8644A3533",
+      "name": "Kari Gas Station",
+      "max_iou": 0.104,
+      "bbox": [
+        35.8324355,
+        34.399763,
+        35.8327691,
+        34.4000638
+      ],
+      "on_tile_seam": false,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": false
+    },
+    {
+      "id": 2,
+      "source_id": "010600000001000000010300000001000000050000007119DC7B5DEA41408C97B89F9D36",
+      "name": null,
+      "max_iou": 0.062,
+      "bbox": [
+        35.8309779,
+        34.4266307,
+        35.8312526,
+        34.4268775
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 3,
+      "source_id": "01060000000100000001030000000100000005000000AF14B82BAAEA4140813D26529A36",
+      "name": null,
+      "max_iou": 0.045,
+      "bbox": [
+        35.8333182,
+        34.4265458,
+        35.8335437,
+        34.426626
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 4,
+      "source_id": "0106000000010000000103000000010000000500000044786AE4A9EA414020D5B0DF1336",
+      "name": null,
+      "max_iou": 0.02,
+      "bbox": [
+        35.8333097,
+        34.4224044,
+        35.8336051,
+        34.4226055
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 5,
+      "source_id": "0106000000010000000103000000010000000500000020E4068DAAEA4140CE84CBCFB234",
+      "name": null,
+      "max_iou": 0,
+      "bbox": [
+        35.8333298,
+        34.4114785,
+        35.8336023,
+        34.4117591
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 6,
+      "source_id": "01060000000100000001030000000100000005000000EB460EC7A9EA41401A2C41EB8634",
+      "name": null,
+      "max_iou": 0.014,
+      "bbox": [
+        35.8333062,
+        34.4102664,
+        35.8336333,
+        34.4105328
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 7,
+      "source_id": "01060000000100000001030000000100000005000000ED89647E24EB4140CDE26A099E36",
+      "name": null,
+      "max_iou": 0.177,
+      "bbox": [
+        35.8370512,
+        34.4266127,
+        35.8373188,
+        34.4267946
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 8,
+      "source_id": "01060000000100000001030000000100000005000000A00491A053EB4140969526A5A036",
+      "name": null,
+      "max_iou": 0.057,
+      "bbox": [
+        35.8384896,
+        34.426632,
+        35.8387538,
+        34.42685
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 9,
+      "source_id": "010600000001000000010300000001000000060000009B5EBDE545EC4140F08403C69F36",
+      "name": null,
+      "max_iou": 0.177,
+      "bbox": [
+        35.8458831,
+        34.426596,
+        35.8462568,
+        34.4268291
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 10,
+      "source_id": "0106000000010000000103000000010000000500000020D6766E35EC4140D371906B9E36",
+      "name": null,
+      "max_iou": 0.134,
+      "bbox": [
+        35.8453806,
+        34.4266108,
+        35.8456434,
+        34.426832
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 11,
+      "source_id": "01060000000100000001030000000100000005000000C71748ABB5EB4140A1AD39F6A236",
+      "name": null,
+      "max_iou": 0.022,
+      "bbox": [
+        35.8414816,
+        34.4266463,
+        35.8416675,
+        34.426915
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 12,
+      "source_id": "01060000000100000001030000000100000006000000CB1FC2AEDCE941408EDA0E57183A",
+      "name": null,
+      "max_iou": 0.06,
+      "bbox": [
+        35.8270472,
+        34.4532352,
+        35.8277371,
+        34.4539956
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 13,
+      "source_id": "0106000000010000000103000000010000000500000062F3716DA8EA4140609CAEDD2C39",
+      "name": null,
+      "max_iou": 0.15,
+      "bbox": [
+        35.833265,
+        34.446549,
+        35.8335169,
+        34.4467614
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 14,
+      "source_id": "010600000001000000010300000001000000050000009F7994A531E841404494E5DA063A",
+      "name": null,
+      "max_iou": 0.177,
+      "bbox": [
+        35.8140151,
+        34.4532273,
+        35.8144931,
+        34.4536354
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 15,
+      "source_id": "0106000000010000000103000000010000000500000050CAFF3FA9EA41405C493CEAF936",
+      "name": null,
+      "max_iou": 0.059,
+      "bbox": [
+        35.8332901,
+        34.4294392,
+        35.8336115,
+        34.4296741
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 16,
+      "source_id": "010600000001000000010300000001000000050000004AAB6BFEA9EA4140E6B809AD3D37",
+      "name": null,
+      "max_iou": 0.026,
+      "bbox": [
+        35.8333128,
+        34.4315319,
+        35.8335191,
+        34.4317137
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 17,
+      "source_id": "01060000000100000001030000000100000005000000F1790FE1A9EA4140AB025A5FC938",
+      "name": null,
+      "max_iou": 0.019,
+      "bbox": [
+        35.8333093,
+        34.4435418,
+        35.8335575,
+        34.4437443
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 18,
+      "source_id": "010600000001000000010300000001000000050000003E2BC47EAAEA4140A263624E2B38",
+      "name": null,
+      "max_iou": 0.001,
+      "bbox": [
+        35.8333281,
+        34.4387598,
+        35.8335426,
+        34.4389306
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 19,
+      "source_id": "01060000000100000001030000000100000005000000A98A04AE86E74140F0332E1C083A",
+      "name": null,
+      "max_iou": 0.118,
+      "bbox": [
+        35.8087976,
+        34.4532714,
+        35.8090937,
+        34.4535279
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 20,
+      "source_id": "010600000001000000010300000001000000050000006ECF3D35A8EA4140F0355F80D837",
+      "name": null,
+      "max_iou": 0.146,
+      "bbox": [
+        35.8332583,
+        34.4361324,
+        35.8335551,
+        34.436392
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 21,
+      "source_id": "01060000000100000001030000000100000005000000B031F9B028EB414052859A7C0E3A",
+      "name": null,
+      "max_iou": 0.069,
+      "bbox": [
+        35.8371793,
+        34.4532687,
+        35.8376023,
+        34.4536679
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 22,
+      "source_id": "01060000000100000001030000000100000005000000D3009475EEEE41405C4C7D6A0639",
+      "name": null,
+      "max_iou": 0.009,
+      "bbox": [
+        35.8666522,
+        34.445434,
+        35.8668989,
+        34.4456141
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 23,
+      "source_id": "01060000000100000001030000000100000005000000628D695CEEEE4140D384ED276338",
+      "name": null,
+      "max_iou": 0.008,
+      "bbox": [
+        35.8666492,
+        34.4404069,
+        35.8670624,
+        34.440642
+      ],
+      "on_tile_seam": true,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": true
+    },
+    {
+      "id": 24,
+      "source_id": "010600000001000000010300000001000000050000009988128832F34140FF379B33473B",
+      "name": null,
+      "max_iou": 0.123,
+      "bbox": [
+        35.8999796,
+        34.46302,
+        35.9001393,
+        34.4631129
+      ],
+      "on_tile_seam": false,
+      "stadium_focus": false,
+      "source": "OpenStreetMap",
+      "license": "ODbL 1.0",
+      "source_date": null,
+      "verification": "requires_independent_review",
+      "integration": "not_approved",
+      "possible_clipped_geometry": false
+    }
+  ]
+}
