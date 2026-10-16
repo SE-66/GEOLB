@@ -1,0 +1,19 @@
+{
+  "status": "complete_catalog_scan",
+  "source": "Microsoft Global ML Building Footprints 2026-08-13",
+  "license": "CDLA Permissive 2.0",
+  "source_catalog": "https://bfppub.blob.core.windows.net/%24web/2026-08-13/dataset-links.csv",
+  "area_bbox": [
+    35.84,
+    34.429,
+    35.864,
+    34.449
+  ],
+  "catalog_matching_links": 5,
+  "links_processed": 5,
+  "errors": [],
+  "overture_footprints_in_aoi": 3585,
+  "candidate_footprints": 790,
+  "integrated_approved": 0,
+  "warning": "Low IoU candidates are unverified satellite-derived polygons; needs secondary corroboration and duplicate review before any main map addition."
+}
